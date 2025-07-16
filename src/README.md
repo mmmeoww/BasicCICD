@@ -104,7 +104,7 @@
 
 1. Создал телеграм бота с именем "aggarego DO6 CI/CD" и получил его API. 
 
-    ![6_1](/src/pictures/6_1.png)
+    ![6_bot](/src/pictures/6_bot.png)
 
 2. Перешел по ссылке `https://api.telegram.org/bot<API_TOKEN>/getUpdates`, где получил id чата.
 
