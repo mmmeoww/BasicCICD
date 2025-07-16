@@ -1,0 +1,52 @@
+stages:
+    - build
+    - code_style
+    - test
+    - deploy
+
+building:
+    stage: build
+    script:
+        - cd src/SimpleBash/cat
+        - make
+        - cd ../grep
+        - make    
+    artifacts:
+        paths:
+            - src/SimpleBash/cat/s21_cat
+            - src/SimpleBash/grep/s21_grep
+        expire_in: 30 days
+    after_script:
+        - bash tg.sh
+
+style_testing:
+    stage: code_style
+    script:
+        - cd src/SimpleBash/cat
+        - clang-format -Werror -n *.c *.h
+        - cd ../grep
+        - clang-format -Werror -n *.c *.h
+    after_script:
+        - bash tg.sh
+
+integration_testing:
+    stage: test
+    needs: [building, style_testing]
+    script:
+        - cd src/SimpleBash/cat
+        - bash test_cat.sh
+        - cd ../grep
+        - bash test_grep.sh
+    after_script:
+        - bash tg.sh
+
+deploy_prod:
+    stage: deploy
+    needs: 
+      - job: building
+        artifacts: true 
+    script:
+        - bash deploy.sh
+    after_script:
+        - bash tg.sh
+    when: manual
