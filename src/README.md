@@ -107,8 +107,6 @@
     ![6_1](/src/pictures/6_1.png)
 
 2. Перешел по ссылке `https://api.telegram.org/bot<API_TOKEN>/getUpdates`, где получил id чата.
- 
-    ![6_2](/src/pictures/6_2.png)
 
 3. Написал скрипт tg.sh, который отправляет уведомления о выпонении этапов пайплайна. API-токен и ID чата добавил в скрытые переменные GitLab CI/CD Variables для безопасности.
 
